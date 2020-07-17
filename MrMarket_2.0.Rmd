@@ -1,0 +1,42 @@
+---
+title: "MrMarket_test_script"
+author: "Piet"
+date: "7/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Thesis: Do market ineffiencies happen more often at public companies, when private Investors hold a big stake in the company. In other terms, does the private investor ownership corelate with market ineffincies and is there a causal relationship between these two components?
+
+Variables: 
+1. Percentage of privately held ownership in a public traded company
+2. Market Inefficiencies 
+
+Because the second variable is quiet abstract I will go on and explain a bit more in detail what this study means by that. Inefficient means that a company's public valuation in form of the market capitalization does not reflect current informations about this specific company. In this case the company is either overvalued or undervalued. 
+ 
+ 
+ 
+ GETTING DATA
+ 
+ 1. Variable: Percentage of privately owned stock in a given company 
+```{r}
+install.packages('quantmod')
+library(quantmod)
+library(rvest)
+url <- "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+SP500 <- url %>%
+  html() %>%
+  html_nodes(xpath='//*[@id="mw-content-text"]/div/table[1]') %>%
+  html_table()
+SP500 <- SP500[[1]]
+
+
+spx <- getSymbols(Symbols = SP500[[1]], src = 'yahoo')
+
+
+```
+ 
+ 
